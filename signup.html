@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akran Bağı - Kayıt Ol</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="login-container">
+        
+        <div class="login-header">
+            <h1>Yeni Hesap Oluştur</h1>
+            <p>Aramıza katılmak için bilgileri doldur</p>
+        </div>
+
+        <form id="signup-form" novalidate>
+
+            <div class="form-group">
+                <label for="username">Kullanıcı Adı</label>
+                <input type="text" id="username" class="form-control" placeholder="ornek: berkay1907" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-posta Adresi</label>
+                <input type="email" id="email" class="form-control" placeholder="ornek@mail.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Şifre (En az 6 karakter)</label>
+                <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Şifreyi Onayla</label>
+                <input type="password" id="confirm-password" class="form-control" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Kayıt Ol</button>
+        
+        </form> 
+        
+        <div class="extra-links">
+            <a href="login.html">Zaten bir hesabın var mı? Giriş Yap</a>
+        </div>
+    </div>
+
+    <div id="success-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 id="modal-title">Başarılı!</h2>
+            <p id="modal-message">Mesaj buraya gelecek.</p>
+            <button id="modal-close" class="modal-close-btn">Anladım</button>
+        </div>
+    </div>
+
+    <script src="./firebase-config.js" type="module"></script>
+    <script src="./signup.js" type="module"></script>
+    
+</body>
+</html>
