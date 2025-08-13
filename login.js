@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Giriş başarılı ve e-posta doğrulanmış:', user);
                 alert(`Hoş geldin, ${user.email}!`);
                 // TODO: Ana sayfaya yönlendirme burada yapılacak.
-                // window.location.href = 'dashboard.html'; 
+                window.location.href = 'dashboard.html'; 
             } else {
                 // E-posta doğrulanmamışsa giriş engellenir.
                 alert("Giriş yapmadan önce lütfen e-postanıza gönderilen doğrulama linkine tıklayarak hesabınızı aktif edin.");

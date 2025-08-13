@@ -1,49 +1,43 @@
-// login.js
+// forgot.js (Nihai Versiyon)
 import { auth } from './firebase-config.js';
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-// EKLENDİ: Tüm kod bu bloğun içine alındı.
 document.addEventListener('DOMContentLoaded', () => {
 
-    const loginForm = document.getElementById('login-form');
-
-    if (!loginForm) {
-        return console.error("Hata: 'login-form' ID'li form elementi bulunamadı!");
+    const forgotPasswordForm = document.getElementById('forgot-password-form');
+    
+    if (!forgotPasswordForm) {
+        return console.error("Hata: 'forgot-password-form' ID'li form elementi bulunamadı!");
     }
+    
+    const submitButton = forgotPasswordForm.querySelector('.submit-btn');
 
-    loginForm.addEventListener('submit', async (event) => {
+    forgotPasswordForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
 
-        if (!email || !password) {
-            return alert("Lütfen tüm alanları doldurun.");
+        if (!email) {
+            return alert("Lütfen e-posta adresinizi girin.");
         }
 
-        try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
+        submitButton.disabled = true;
+        submitButton.textContent = 'Gönderiliyor...';
 
-            // MANTIKSAL İYİLEŞTİRME: E-posta doğrulandı mı?
-            if (user.emailVerified) {
-                // E-posta doğrulanmışsa giriş başarılıdır.
-                console.log('Giriş başarılı ve e-posta doğrulanmış:', user);
-                alert(`Hoş geldin, ${user.email}!`);
-                // TODO: Ana sayfaya yönlendirme burada yapılacak.
-                // window.location.href = 'dashboard.html'; 
-            } else {
-                // E-posta doğrulanmamışsa giriş engellenir.
-                alert("Giriş yapmadan önce lütfen e-postanıza gönderilen doğrulama linkine tıklayarak hesabınızı aktif edin.");
-                // İsteğe bağlı olarak kullanıcıyı tekrar sistemden atabiliriz:
-                // auth.signOut();
-            }
+        try {
+            await sendPasswordResetEmail(auth, email);
+            
+            // Firebase hata göndermediği için, her zaman bu "güvenli" mesajı gösteriyoruz.
+            alert("Eğer girdiğiniz e-posta adresi sistemimizde kayıtlıysa, şifre sıfırlama bağlantısı gönderildi. Lütfen gelen kutunuzu (ve spam klasörünü) kontrol edin.");
+            window.location.href = 'login.html';
+
         } catch (error) {
-            console.error("Giriş Hatası:", error.code);
-            if (error.code === 'auth/invalid-credential') {
-                alert("E-posta veya şifre hatalı. Lütfen tekrar deneyin.");
-            } else {
-                alert("Giriş sırasında bir hata oluştu.");
-            }
+            // Sadece geçersiz e-posta formatı gibi genel hatalar bu bloğa düşer.
+            console.error("Beklenmedik Şifre Sıfırlama Hatası:", error);
+            alert("İşlem sırasında bir hata oluştu. Lütfen girdiğiniz e-posta adresinin doğru olduğundan emin olun.");
+
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Sıfırlama Bağlantısı Gönder';
         }
     });
 });
