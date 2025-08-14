@@ -1,4 +1,4 @@
-// signup.js
+// signup.js (TÜM ALERT'LER POP-UP OLDU)
 import { auth, db } from './firebase-config.js';
 import { createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"; 
 import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"; 
@@ -6,21 +6,23 @@ import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs
 document.addEventListener('DOMContentLoaded', () => {
 
     const signupForm = document.getElementById('signup-form');
-    // Modal elementlerini seçiyoruz
-    const modal = document.getElementById('success-modal');
-    const modalMessage = document.getElementById('modal-message');
-    const modalCloseBtn = document.getElementById('modal-close');
+    // Başarı Modalı Elementleri
+    const successModal = document.getElementById('success-modal');
+    const successModalMessage = document.getElementById('modal-message');
+    const successModalCloseBtn = document.getElementById('modal-close');
 
-    if (!signupForm) {
-        console.error("Hata: 'signup-form' ID'li form elementi bulunamadı!");
-        return;
-    }
+    // Hata Modalı Elementleri
+    const errorModal = document.getElementById('error-modal');
+    const errorModalMessage = document.getElementById('error-modal-message');
+    const errorModalCloseBtn = document.getElementById('error-modal-close');
 
-    // Modal kapatma butonu için olay dinleyici
-    modalCloseBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-    });
+    if (!signupForm) return;
 
+    // Pop-up kapatma butonları
+    successModalCloseBtn.addEventListener('click', () => successModal.classList.remove('active'));
+    errorModalCloseBtn.addEventListener('click', () => errorModal.classList.remove('active'));
+
+    // Form gönderildiğinde çalışacak ana fonksiyon
     signupForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         
@@ -29,22 +31,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirm-password').value;
 
+        // Form doğrulama hataları için eski alert yerine hata pop-up'ını kullan
         if (!username || !email || !password) {
-            return alert("Lütfen tüm alanları doldurun.");
+            showErrorModal("Lütfen tüm alanları doldurun.");
+            return;
         }
         if (password !== confirmPassword) {
-            return alert("Girdiğiniz şifreler eşleşmiyor!");
+            showErrorModal("Girdiğiniz şifreler eşleşmiyor!");
+            return;
         }
 
         try {
-            // 1. Hesap oluşturuluyor
+            // Firebase işlemleri...
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            
-            // 2. Doğrulama e-postası gönderiliyor
             await sendEmailVerification(user);
-
-            // 3. Firestore'a veri yazılıyor
             const userDocRef = doc(db, "users", user.uid);
             await setDoc(userDocRef, {
                 kullaniciAdi: username,
@@ -54,21 +55,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 rol: "ogrenci"
             });
 
-            // 4. Yönlendirme yerine pop-up gösteriliyor
-            modalMessage.textContent = `Hesabınız başarıyla oluşturuldu! Lütfen ${email} adresine gönderilen doğrulama bağlantısına tıklayarak hesabınızı aktif edin.`;
-            modal.classList.add('active');
-            
-            // ESKİ KODLAR SİLİNDİ (alert ve window.location.href)
+            // Başarılı olduğunda başarı pop-up'ını göster
+            successModalMessage.textContent = `Hesabınız başarıyla oluşturuldu! Lütfen ${email} adresine gönderilen doğrulama bağlantısına tıklayarak hesabınızı aktif edin.`;
+            successModal.classList.add('active');
 
         } catch (error) {
             console.error("Kayıt Hatası:", error);
+            // Firebase'den hata geldiğinde hata pop-up'ını göster
             if (error.code === 'auth/email-already-in-use') {
-                alert("Bu e-posta adresi zaten kullanılıyor.");
+                showErrorModal("Bu e-posta adresi zaten sistemde kayıtlı. Lütfen giriş yapmayı deneyin.");
             } else if (error.code === 'auth/weak-password') {
-                alert("Şifre en az 6 karakter olmalıdır.");
+                showErrorModal("Şifre en az 6 karakter olmalıdır.");
             } else {
-                alert("Kayıt sırasında bir hata oluştu.");
+                showErrorModal("Kayıt sırasında beklenmedik bir hata oluştu.");
             }
         }
     });
+
+    // Hata pop-up'ını gösteren yardımcı fonksiyon
+    function showErrorModal(message) {
+        if(errorModalMessage && errorModal) {
+            errorModalMessage.textContent = message;
+            errorModal.classList.add('active');
+        }
+    }
 });

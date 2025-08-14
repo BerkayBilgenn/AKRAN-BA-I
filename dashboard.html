@@ -19,9 +19,21 @@
     </nav>
 
     <main class="main-content">
-        <h1>Hoş Geldin!</h1>
-        <p>Akran Bağı platformuna başarıyla giriş yaptın.</p>
-        <p>Projenin bir sonraki aşamasında burası mentorlar ve mentiler ile dolacak!</p>
+        
+        <section class="search-section">
+            <form id="user-search-form" class="search-form">
+                <input type="text" id="search-input" class="search-input" placeholder="Kullanıcı adı ile ara...">
+                <button type="submit" class="search-btn">Ara</button>
+            </form>
+            <div id="search-results-container" class="search-results">
+                </div>
+        </section>
+
+        <h1 class="page-title">Platformdaki Mentörler</h1>
+        <p class="page-subtitle">Destek almak istediğin mentörü seçerek profilini inceleyebilirsin.</p>
+        <div id="mentor-list-container" class="mentor-grid">
+            </div>
+
     </main>
 
     <script src="./firebase-config.js" type="module"></script>

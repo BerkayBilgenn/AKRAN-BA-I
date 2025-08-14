@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mentör Güncelleyici</title>
+</head>
+
+<body>
+
+    <h1>Mentör Güncelleme Aracı</h1>
+    <p>Bu script, Firestore'daki mevcut tüm mentörlere 'sinif' ve 'mentiSayisi' alanlarını rastgele değerlerle
+        ekleyecektir.</p>
+    <button id="update-button">Tüm Mentörleri Güncelle</button>
+    <div id="status" style="margin-top: 20px; font-family: sans-serif;"></div>
+
+    <script type="module">
+        // Firebase kütüphanelerini import et
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+        // LÜTFEN BURAYA KENDİ FIREBASE CONFIG BİLGİLERİNİ YAPIŞTIR
+        const firebaseConfig = {
+            apiKey: "AIzaSyA2iNXj8zMD3t9hnwbItI3PiRUcw8S3mI8",
+            authDomain: "akran-6891f.firebaseapp.com",
+            projectId: "akran-6891f",
+            storageBucket: "akran-6891f.firebasestorage.app",
+            messagingSenderId: "252187049082",
+            appId: "1:252187049082:web:12cd830531019932b58fc3",
+            measurementId: "G-SMGPPD416P"
+        };
+
+        // Firebase'i başlat
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const updateButton = document.getElementById('update-button');
+        const statusDiv = document.getElementById('status');
+
+        updateButton.addEventListener('click', async () => {
+
+            if (!confirm("Mevcut tüm mentörler güncellenecektir. Emin misiniz?")) {
+                return;
+            }
+
+            updateButton.disabled = true;
+            statusDiv.innerHTML = "Mentörler güncelleniyor, lütfen bekleyin...";
+
+            try {
+                // "mentors" koleksiyonundaki tüm dökümanları çek
+                const querySnapshot = await getDocs(collection(db, "mentors"));
+
+                // Her bir döküman üzerinde döngü ile işlem yap
+                for (const document of querySnapshot.docs) {
+                    // Rastgele test verileri oluştur
+                    const randomSinif = Math.floor(Math.random() * 4) + 1; // 1, 2, 3 veya 4. sınıf
+                    const randomMentiSayisi = Math.floor(Math.random() * 11); // 0 ile 10 arası menti
+
+                    // Mevcut dökümanı güncelle
+                    await updateDoc(doc(db, "mentors", document.id), {
+                        sinif: randomSinif,
+                        mentiSayisi: randomMentiSayisi
+                    });
+
+                    const mentorIsim = document.data().isim || document.id;
+                    statusDiv.innerHTML += `<br>${mentorIsim} güncellendi (Sınıf: ${randomSinif}, Menti Sayısı: ${randomMentiSayisi})...`;
+                }
+
+                statusDiv.innerHTML += "<br><br><b>Harika! Tüm mentörler başarıyla güncellendi.</b><br>Artık bu sayfayı kapatabilirsin.";
+
+            } catch (error) {
+                console.error("Mentörler güncellenirken bir hata oluştu: ", error);
+                statusDiv.textContent = "Bir hata oluştu. Lütfen Console'u kontrol et.";
+            }
+        });
+    </script>
+
+</body>
+
+</html>

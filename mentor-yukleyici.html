@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mentör Yükleyici</title>
+</head>
+
+<body>
+
+    <h1>Mentör Yükleme Aracı</h1>
+    <p>Bu sayfa, Firestore veritabanına 15 adet test mentörü ekleyecektir.</p>
+    <button id="load-button">15 Mentörü Veritabanına Yükle</button>
+    <div id="status" style="margin-top: 20px; font-family: sans-serif;"></div>
+
+    <script type="module">
+        // Firebase kütüphanelerini import et
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+        // LÜTFEN BURAYA KENDİ FIREBASE CONFIG BİLGİLERİNİ YAPIŞTIR
+        const firebaseConfig = {
+            apiKey: "AIzaSyA2iNXj8zMD3t9hnwbItI3PiRUcw8S3mI8",
+            authDomain: "akran-6891f.firebaseapp.com",
+            projectId: "akran-6891f",
+            storageBucket: "akran-6891f.firebasestorage.app",
+            messagingSenderId: "252187049082",
+            appId: "1:252187049082:web:12cd830531019932b58fc3",
+            measurementId: "G-SMGPPD416P"
+        };
+
+        // Firebase'i başlat
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const loadButton = document.getElementById('load-button');
+        const statusDiv = document.getElementById('status');
+
+        loadButton.addEventListener('click', async () => {
+
+            if (!confirm("Veritabanına 15 mentör eklenecektir. Emin misiniz?")) {
+                return;
+            }
+
+            loadButton.disabled = true;
+            statusDiv.innerHTML = "Mentörler yükleniyor, lütfen bekleyin...";
+
+            const mentorImageUrl = "https://upload.wikimedia.org/wikipedia/commons/6/68/Leo_Messi_%28cropped%29.jpg";
+
+            try {
+                // 1'den 15'e kadar dönen bir döngü oluştur
+                for (let i = 1; i <= 15; i++) {
+                    const mentorData = {
+                        isim: `Mentör ${i}`,
+                        bolum: "Yazılım Geliştirme",
+                        aciklama: `Bu, Mentör ${i} için örnek bir açıklamadır. Projenin bu aşamasında test verisi olarak kullanılmaktadır.`,
+                        resimUrl: mentorImageUrl
+                    };
+
+                    // "mentors" koleksiyonuna yeni mentörü ekle
+                    await addDoc(collection(db, "mentors"), mentorData);
+                    statusDiv.innerHTML += `<br>Mentör ${i} eklendi...`;
+                }
+
+                statusDiv.innerHTML += "<br><br><b>Harika! 15 mentörün tamamı başarıyla Firestore veritabanına eklendi.</b><br>Artık bu sayfayı kapatıp projenizin ana sayfasına gidebilirsin.";
+
+            } catch (error) {
+                console.error("Mentörler eklenirken bir hata oluştu: ", error);
+                statusDiv.textContent = "Bir hata oluştu. Lütfen Console'u kontrol et.";
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,3 +1,7 @@
+
+/* style.css dosyasının en üstü */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 /* ================================================
    1. GENEL SAYFA AYARLARI
    (Tüm sayfalar için geçerli)
@@ -10,6 +14,8 @@
     align-items: center;
     justify-content: center;
     height: 100vh; /* Sayfanın tamamını kapla */
+    font-family: 'Poppins', sans-serif;
+
 }
 
 /* ================================================
@@ -227,6 +233,17 @@
     gap: 1.5rem;
 }
 
+/* style.css dosyasının nav-menu stillerinin altına eklenebilir */
+.nav-link {
+    font-weight: 600;
+    color: #374151;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.nav-link:hover {
+    color: #4f46e5;
+}
+
 #user-display-name {
     font-weight: 600;
     color: #374151;
@@ -254,4 +271,530 @@
     margin: 2rem auto;
     padding: 0 2rem;
     color: #1f2937;
+}
+/* ================================================
+   7. MENTOR KARTLARI STİLLERİ (YENİ TASARIM)
+   ================================================ */
+
+   .page-title {
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    margin-top: 0;
+    color: #6b7280;
+    margin-bottom: 2.5rem;
+}
+
+.mentor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem; /* Kartlar arası boşluğu artırdık */
+}
+
+.mentor-card {
+    background-color: white;
+    border-radius: 12px; /* Daha yumuşak köşeler */
+    border: 1px solid #e5e7eb; /* İnce bir çerçeve */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Daha zarif bir gölge */
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mentor-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* Daha belirgin hover gölgesi */
+}
+
+.mentor-card img {
+    width: 100%;
+    height: 200px; /* Resim yüksekliğini azalttık */
+    object-fit: cover; /* Resmin orantısını koru */
+    display: block;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.mentor-card-body {
+    padding: 1rem 1.25rem; /* İç boşlukları güncelledik */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.mentor-card-body h3 {
+    margin: 0 0 0.25rem 0; /* Boşlukları ayarladık */
+    font-size: 1.125rem; /* 18px */
+    font-weight: 600; /* Daha okunaklı */
+    color: #111827; /* Daha koyu bir başlık rengi */
+}
+
+.mentor-card-body p {
+    margin: 0;
+    font-size: 0.875rem; /* 14px */
+    color: #4f46e5; /* Bölüm yazısını markamızın rengiyle vurguladık */
+    font-weight: 500;
+}
+/* ================================================
+   8. MENTOR DETAY SAYFASI STİLLERİ
+   ================================================ */
+
+/* ====================================================
+   8. MENTOR DETAY SAYFASI STİLLERİ (YENİ TASARIM)
+   ==================================================== */
+
+   .mentor-profile-card {
+    background-color: #fff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Profilin Üst Kısmı (Resim, İsim, Butonlar) */
+.profile-header {
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.profile-avatar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* Linkedin gibi yuvarlak resim */
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.profile-info {
+    flex-grow: 1;
+}
+
+.profile-info h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.profile-info p {
+    margin: 0.25rem 0 0 0;
+    font-size: 1rem;
+    color: #4b5563;
+}
+
+.profile-actions {
+    /* Takip et butonu gelecekte buraya gelecek */
+}
+
+/* İstatistikler Kısmı */
+.profile-stats {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem 2rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.stat-item {
+    font-size: 1rem;
+    color: #4b5563;
+}
+
+.stat-item strong {
+    font-weight: 600;
+    color: #111827;
+}
+
+/* Hakkında ve Paylaşımlar Kısmı */
+.profile-body {
+    padding: 2rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.profile-body h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.profile-body p.bio {
+    line-height: 1.7;
+    color: #374151;
+}
+
+/* Yüklenme ve Hata Mesajları */
+.profile-loading, .profile-error {
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.2rem;
+    color: #6b7280;
+}
+
+
+/* ================================================
+   9. POST (GÖNDERİ) ALANI STİLLERİ
+   ================================================ */
+
+   .post-creation-section {
+    padding: 2rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.post-creation-section h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+#post-form textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-family: inherit;
+    box-sizing: border-box;
+    resize: vertical;
+    margin-bottom: 1rem;
+}
+
+#post-form .submit-btn {
+    display: block;
+    width: auto;
+    margin-left: auto;
+    padding: 0.6rem 1.5rem;
+}
+  
+
+/* ====================================================
+   10. MENTÖR PAYLAŞIMLARI STİLLERİ
+   ==================================================== */
+
+.mentor-posts {
+    padding: 2rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.mentor-posts h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+}
+
+.mentor-post-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+    border-left: 5px solid #4f46e5; /* Vurgu için sol kenar çizgisi */
+}
+
+.mentor-post-card .post-content {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #374151;
+    margin-bottom: 1rem;
+}
+
+.mentor-post-card .post-date {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+/* ====================================================
+   11. TAKİP ET BUTONU STİLLERİ
+   ==================================================== */
+
+   .follow-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    min-width: 120px; /* Buton boyutunun değişmesini engeller */
+}
+
+.follow-btn.follow {
+    background-color: #4f46e5;
+    color: white;
+}
+.follow-btn.follow:hover {
+    background-color: #4338ca;
+}
+
+.follow-btn.unfollow {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border: 1px solid #d1d5db;
+}
+.follow-btn.unfollow:hover {
+    background-color: #e5e7eb;
+}
+
+/* ====================================================
+   12. GÖNDERİ KARTI EKSTRA STİLLERİ
+   ==================================================== */
+
+   .mentor-post-card {
+    position: relative; /* Silme butonunu konumlandırmak için */
+}
+
+.delete-post-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #9ca3ab;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.delete-post-btn:hover {
+    color: #ef4444; /* Kırmızı renk */
+}
+
+/* ====================================================
+   13. ONAY MODALI (CONFIRM MODAL) STİLLERİ
+   ==================================================== */
+
+   .modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.modal-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.modal-btn.cancel {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border-color: #d1d5db;
+}
+.modal-btn.cancel:hover {
+    background-color: #e5e7eb;
+}
+
+.modal-btn.confirm {
+    background-color: #ef4444; /* Kırmızı - Tehlike */
+    color: white;
+}
+.modal-btn.confirm:hover {
+    background-color: #dc2626; /* Koyu Kırmızı */
+}
+
+/* ================================================
+   14. KULLANICI ARAMA STİLLERİ
+   ================================================ */
+
+   .search-section {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 2.5rem; /* Mentör listesiyle arasına boşluk koy */
+}
+
+.search-form {
+    display: flex;
+    gap: 1rem;
+}
+
+.search-input {
+    flex-grow: 1; /* Alanın tüm boşluğu kaplamasını sağla */
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+.search-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background-color: #4f46e5;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.search-btn:hover {
+    background-color: #4338ca;
+}
+
+.search-results {
+    margin-top: 1.5rem;
+}
+
+.search-result-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #1f2937;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.search-result-item:hover {
+    background-color: #f3f4f6;
+}
+
+.search-results .no-results {
+    color: #6b7280;
+    padding: 0.75rem 1rem;
+}
+/* ====================================================
+   15. HATA MODALI (ERROR MODAL) STİLLERİ
+   ==================================================== */
+
+   .modal-content.error-modal-content h2 {
+    color: #ef4444; /* Kırmızı Hata Rengi */
+}
+/* ====================================================
+   16. GÖNDERİ ETKİLEŞİM (BEĞENİ) STİLLERİ
+   ==================================================== */
+
+ /* ====================================================
+   16. GÖNDERİ ETKİLEŞİM (BEĞENİ) STİLLERİ
+   ==================================================== */
+
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f3f4f6;
+}
+
+.post-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6b7280;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #f3f4f6;
+}
+
+.action-btn .icon {
+    font-size: 1.25rem;
+}
+
+/* Beğenilmiş durum için özel stil */
+.action-btn.liked .icon {
+    color: #ef4444; /* Kırmızı Kalp */
+    font-weight: 900; /* Dolu kalp için */
+}
+
+.action-btn.liked .like-count {
+    color: #ef4444;
+}
+
+/* ====================================================
+   17. YORUM SİSTEMİ STİLLERİ
+   ==================================================== */
+
+ /* ====================================================
+   17. YORUM SİSTEMİ STİLLERİ
+   ==================================================== */
+
+.comments-section {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f3f4f6; /* Açık gri ayırıcı */
+}
+
+.comment {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.comment p {
+    margin: 0;
+}
+
+.comment-author {
+    font-weight: 600;
+    color: #111827;
+    margin-right: 0.5rem; /* Kullanıcı adı ile yorum arasına boşluk */
+}
+
+.comment-text {
+    color: #374151;
+}
+
+.comment-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.comment-input {
+    flex-grow: 1; /* Alanın genişlemesini sağla */
+    border: 1px solid #d1d5db;
+    border-radius: 9999px; /* Yuvarlak hap şeklinde */
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.comment-input:focus {
+    border-color: #4f46e5; /* Ana renk */
 }

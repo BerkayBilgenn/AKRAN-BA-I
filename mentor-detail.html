@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Profili - Akran Bağı</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="dashboard.html" class="nav-brand">Akran Bağı</a>
+            <div class="nav-menu">
+                <span id="user-display-name">...</span>
+                <button id="logout-btn" class="logout-button">Çıkış Yap</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content" id="mentor-profile-container">
+        <div class="profile-loading">Yükleniyor...</div>
+    </main>
+    
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 id="confirm-modal-title">Emin misiniz?</h2>
+            <p id="confirm-modal-message">Bu işlem geri alınamaz.</p>
+            <div class="modal-buttons">
+                <button id="cancel-delete-btn" class="modal-btn cancel">İptal</button>
+                <button id="confirm-delete-btn" class="modal-btn confirm">Evet, Sil</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./firebase-config.js" type="module"></script>
+    </body>
+</html>
+
+    <script src="./firebase-config.js" type="module"></script>
+    <script src="./mentor-detail.js" type="module"></script>
+
+</body>
+</html>
