@@ -147,9 +147,9 @@ onAuthStateChanged(auth, async (user) => {
             mentorProfileContainer.innerHTML = `<div class="profile-error">Mentor ID'si belirtilmemiş.</div>`;
         }
     } else {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
     }
 });
 
 // ÇIKIŞ YAPMA BUTONU
-logoutBtn.addEventListener('click', () => signOut(auth).then(() => { window.location.href = 'login.html'; }));
+logoutBtn.addEventListener('click', () => signOut(auth).then(() => { window.location.href = 'index.html'; }));

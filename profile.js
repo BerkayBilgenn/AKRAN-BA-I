@@ -16,7 +16,7 @@ let loggedInUserData = null; // Giriş yapmış kullanıcının verilerini sakla
 // --- ANA GİRİŞ NOKTASI ---
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
     }
 
@@ -357,4 +357,4 @@ function showConfirmationModal(message) {
     });
 }
 
-logoutBtn.addEventListener('click', () => signOut(auth).then(() => { window.location.href = 'login.html'; }));
+logoutBtn.addEventListener('click', () => signOut(auth).then(() => { window.location.href = 'index.html'; }));

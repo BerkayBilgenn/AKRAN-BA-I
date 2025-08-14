@@ -105,13 +105,13 @@ onAuthStateChanged(auth, async (user) => {
         setupUserSearch();
 
     } else {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
     }
 });
 
 // ÇIKIŞ YAPMA BUTONU
 logoutBtn.addEventListener('click', () => {
     signOut(auth).then(() => {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
     });
 });
